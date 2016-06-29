@@ -22,6 +22,9 @@ map.transform <- function (mapdat, cont.us = NA, fifty.states = NA,
   if(isTRUE(cont.us) && isTRUE(fifty.states)){
     stop("Please select either continental US or fifty states.")
   }
+  if(isTRUE(cont.us) && !isTRUE(original.positions)){
+    stop("original.positions moves Alaska and Hawaii. Please set fifty.states=TRUE")
+  }
 
   # Convert to equel area, we'll need this either way.
   mapdat <- spTransform(mapdat, CRS("+proj=laea +lat_0=45 +lon_0=-100 +x_0=0
@@ -32,7 +35,7 @@ map.transform <- function (mapdat, cont.us = NA, fifty.states = NA,
     # Remove Alaska(02) and Hawaii (15) from map.
     mapdat <- mapdat[!mapdat$STATEFP %in% c("02", "15"),]
     # Make sure other outling islands are removed including, Puerto Rico (72), Guam (66),
-    #Virgin Islands (78), American Samoa (60) Mariana Islands (69)
+    # Virgin Islands (78), American Samoa (60) Mariana Islands (69)
     # Micronesia (64), Marshall Islands (68), Palau (70), Minor Islands (74)
     mapdat <- mapdat[!mapdat$STATEFP %in% c("81", "84", "86", "87", "89", "71", "76",
                                             "95", "79", "72", "66", "78", "60", "69",
@@ -56,7 +59,7 @@ map.transform <- function (mapdat, cont.us = NA, fifty.states = NA,
     # Remove Alaska(02) and Hawaii (15) from map.
     mapdat <- mapdat[!mapdat$STATEFP %in% c("02", "15"),]
     # Make sure other outling islands are removed including, Puerto Rico (72), Guam (66),
-    #Virgin Islands (78), American Samoa (60) Mariana Islands (69)
+    # Virgin Islands (78), American Samoa (60) Mariana Islands (69)
     # Micronesia (64), Marshall Islands (68), Palau (70), Minor Islands (74)
     mapdat <- mapdat[!mapdat$STATEFP %in% c("81", "84", "86", "87", "89", "71", "76",
                                             "95", "79", "72", "66", "78", "60", "69",
@@ -67,7 +70,7 @@ map.transform <- function (mapdat, cont.us = NA, fifty.states = NA,
 
   if (isTRUE(fifty.states) && isTRUE(original.positions)){
     # Make sure other outling islands are removed including, Puerto Rico (72), Guam (66),
-    #Virgin Islands (78), American Samoa (60) Mariana Islands (69)
+    # Virgin Islands (78), American Samoa (60) Mariana Islands (69)
     # Micronesia (64), Marshall Islands (68), Palau (70), Minor Islands (74)
     mapdat <- mapdat[!mapdat$STATEFP %in% c("81", "84", "86", "87", "89", "71", "76",
                                             "95", "79", "72", "66", "78", "60", "69",                                                "64", "68", "70", "74"),]
