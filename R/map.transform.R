@@ -8,12 +8,12 @@
 #' @param original.positions If set to FALSE it will re-scale and move Alaska and Hawaii.
 #'        Note, it is set to FALSE by default.
 #' @import sp maptools
-#' @export map.transform
+#' @export map_transform
 #' @examples \dontrun{
 #' library(tigris)
 #'
 #'
-map.transform <- function (mapdat, cont.us = NA, fifty.states = NA,
+map_transform <- function (mapdat, cont.us = NA, fifty.states = NA,
                            original.positions = FALSE){
 
   if(is.na(cont.us) && is.na(fifty.states)){
@@ -78,3 +78,4 @@ map.transform <- function (mapdat, cont.us = NA, fifty.states = NA,
 
   return(mapdat)
 }
+
